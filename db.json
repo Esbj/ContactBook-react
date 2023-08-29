@@ -1,0 +1,16 @@
+{
+  "contacts": [
+    {
+      "name": "Kaj",
+      "adress": "Cat tower apt. 3",
+      "email": "kaj@cmail.com",
+      "phone": "+464124532"
+    },
+    {
+      "name": "Kiwi",
+      "adress": "Cat tower apt. 4",
+      "email": "kiwi@cmail.com",
+      "phone": "+464123452"
+    }
+  ]
+}
