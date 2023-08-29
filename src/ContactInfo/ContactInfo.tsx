@@ -3,7 +3,8 @@ import { useReducer, useState } from 'react'
 import "./ContactInfo.scss"
 type ContactInfoProps = {
   contact: Contact;
-  saveContacts: (contact: Contact) => void
+  saveContacts: (contact: Contact) => void,
+  removeContact: (contact: Contact) => void
 }
 type State = {
   id: number,
@@ -26,7 +27,7 @@ type Action =
   | { type: ActionTypes.SET_EMAIL, payload: string }
   | { type: ActionTypes.SET_PHONE, payload: string };
 
-export default function ContactInfo({ contact, saveContacts }: ContactInfoProps) {
+export default function ContactInfo({ contact, saveContacts, removeContact }: ContactInfoProps) {
   const [isEditing, setIsEditing] = useState(false);
   const initialState: State = {
     id: contact.id,
@@ -92,7 +93,10 @@ export default function ContactInfo({ contact, saveContacts }: ContactInfoProps)
           <p>📞 {state.phone}</p>
           <p>✉️ {state.email}</p>
           <p>🏠 {state.address}</p>
-          <button onClick={() => setIsEditing(true)}>Edit contact</button>
+          <div className="buttons">
+            <button onClick={() => setIsEditing(true)}>Edit contact</button>
+            <button onClick={() => removeContact(contact)} className="danger">Remove</button>
+          </div>
         </div>
       }
     </>

@@ -32,7 +32,15 @@ function App() {
       .then(res => res.json())
       .then(data => console.log(data))
   }
-
+  const removeContact = (contact: Contact) => {
+    fetch(apiUrl + contact.id, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+      .then(() => getContacts())
+  }
   useEffect(() => {
     getContacts()
   }, [])
@@ -42,10 +50,11 @@ function App() {
       <div className='contact-list'>
         {
           contacts.map((contact, i) => {
-            return <ContactInfo key={i} contact={contact} saveContacts={saveContacts} />
+            return <ContactInfo key={i} contact={contact} saveContacts={saveContacts} removeContact={removeContact} />
           })
         }
       </div>
+
     </>
   )
 }
