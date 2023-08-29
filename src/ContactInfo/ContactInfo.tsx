@@ -2,9 +2,11 @@ import { Contact } from "../App"
 import { useReducer, useState } from 'react'
 import "./ContactInfo.scss"
 type ContactInfoProps = {
-  contact: Contact
+  contact: Contact;
+  saveContacts: (contact: Contact) => void
 }
 type State = {
+  id: number,
   name: string,
   address: string,
   email: string,
@@ -24,35 +26,51 @@ type Action =
   | { type: ActionTypes.SET_EMAIL, payload: string }
   | { type: ActionTypes.SET_PHONE, payload: string };
 
-function reducer(state: State, action: Action): State {
-  switch (action.type) {
-    case ActionTypes.SET_NAME:
-      return { ...state, name: action.payload };
-    case ActionTypes.SET_ADDRESS:
-      return { ...state, address: action.payload };
-    case ActionTypes.SET_EMAIL:
-      return { ...state, email: action.payload };
-    case ActionTypes.SET_PHONE:
-      return { ...state, phone: action.payload };
-    default:
-      throw new Error("Unexptected action type");
-  }
-}
-
-
-export default function ContactInfo({ contact }: ContactInfoProps) {
+export default function ContactInfo({ contact, saveContacts }: ContactInfoProps) {
   const [isEditing, setIsEditing] = useState(false);
   const initialState: State = {
+    id: contact.id,
     name: contact.name,
     address: contact.adress,
     email: contact.email,
     phone: contact.phone
   };
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  function reducer(state: State, action: Action): State {
+    switch (action.type) {
+      case ActionTypes.SET_NAME:
+        return { ...state, name: action.payload };
+      case ActionTypes.SET_ADDRESS:
+        return { ...state, address: action.payload };
+      case ActionTypes.SET_EMAIL:
+        return { ...state, email: action.payload };
+      case ActionTypes.SET_PHONE:
+        return { ...state, phone: action.payload };
+      default:
+        throw new Error("Unexptected action type");
+    }
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsEditing(!isEditing)
+    const updatedContact: Contact = {
+      id: state.id,
+      name: state.name,
+      phone: state.phone,
+      email: state.email,
+      adress: state.address,
+    }
+    saveContacts(updatedContact)
   };
+  const handleCancel = () => {
+    setIsEditing(false);
+    dispatch({ type: ActionTypes.SET_ADDRESS, payload: initialState.address })
+    dispatch({ type: ActionTypes.SET_EMAIL, payload: initialState.email })
+    dispatch({ type: ActionTypes.SET_NAME, payload: initialState.name })
+    dispatch({ type: ActionTypes.SET_PHONE, payload: initialState.phone })
+  }
   return (
     <>
       {isEditing ?
@@ -65,6 +83,7 @@ export default function ContactInfo({ contact }: ContactInfoProps) {
           <input value={state.email} type="text" name="mail" id="mail" onChange={(e) => dispatch({ type: ActionTypes.SET_EMAIL, payload: e.target.value })} />
           <label htmlFor="adress">🏠</label>
           <input value={state.address} type="text" name="adress" id="adress" onChange={(e) => dispatch({ type: ActionTypes.SET_ADDRESS, payload: e.target.value })} />
+          <button onClick={handleCancel} type="button">Cancel</button>
           <button type="submit">Save</button>
         </form>
         :
