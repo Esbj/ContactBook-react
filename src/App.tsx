@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import ContactInfo from './ContactInfo/ContactInfo'
+import NewContact from './NewContact/NewContact'
 
 const apiUrl = "http://localhost:3000/contacts/"
 export type Contact = {
@@ -13,9 +14,24 @@ export type Contact = {
 
 function App() {
   const [contacts, setContacts] = useState(Array<Contact>)
+  const [isAdding, setIsAdding] = useState(false)
+  useEffect(() => {
+    getContacts()
+  }, [])
+  const createContact = (contact: Contact) => {
+    setIsAdding(false)
+    fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(contact)
+    })
+      .then(getContacts)
 
+  }
   const getContacts = () => {
-    fetch("http://localhost:3000/contacts")
+    fetch(apiUrl)
       .then(res => res.json())
       .then(data => {
         setContacts(data)
@@ -41,9 +57,7 @@ function App() {
     })
       .then(() => getContacts())
   }
-  useEffect(() => {
-    getContacts()
-  }, [])
+
   return (
     <>
       <h1>Contact Book</h1>
@@ -54,7 +68,13 @@ function App() {
           })
         }
       </div>
-
+      {!isAdding &&
+        <button type='button' onClick={() => { setIsAdding(true); console.log("click") }}>
+          Add contact
+        </button >
+      }
+      {isAdding && <NewContact createContact={createContact} />
+      }
     </>
   )
 }
