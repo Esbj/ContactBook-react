@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+.contact-list {
+  display: flex;
+  flex-flow: row;
+  gap: 1.5rem;
+}

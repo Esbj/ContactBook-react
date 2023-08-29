@@ -1,0 +1,12 @@
+.contact-info {
+  text-align: left;
+}
+.edit-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  label {
+    display: inline;
+    text-align: left;
+  }
+}
