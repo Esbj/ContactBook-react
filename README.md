@@ -1,27 +1,5 @@
-# React + TypeScript + Vite
+# Övning: Adressbok
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+I dagens övning ska du göra en adressbok med hjälp av React (inklusive hooks!) och JSON-server. I adressboken ska du kunna lägga in olika typer av kontaktuppgifter (t.ex. emailadress, postadress, telefonnummer) till olika personer, och datan ska sparas i en JSON-fil. Det ska finnas olika inputfält för uppgifterna, man ska kunna se en lista på alla kontakter(och deras uppgifter) och det ska gå att lägga och redigera kontakter. I övrigt är upplägget ganska fritt.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Börja med att fundera på vilka komponenter du behöver och hur datastrukturen ska se ut. Gör gärna en enkel skiss på papper eller i Figma! Det är oftast lättare att koda om man har en tydlig bild av hur det ska se ut.
